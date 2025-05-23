@@ -2,7 +2,6 @@ package ui;
 
 import Common.Constantes;
 import dao.Canciones;
-import dao.GestorCanciones;
 import dao.ReproductorMP3;
 
 import java.util.Scanner;
@@ -45,7 +44,7 @@ public class EntradaSalida {
             opcion = EntradaSalida.lectorDeOpcionesNumericas();
             String archivoCanciones = "src/dao/bbdd_canciones.txt";
             ReproductorMP3 reproductor = new ReproductorMP3();
-            Canciones canciones = new Canciones(GestorCanciones.leerCancionesDeArchivo(archivoCanciones));
+            Canciones canciones = new Canciones(dao.GestorCancionesInterface.leerCancionesDeArchivo(archivoCanciones));
             switch (opcion) {
                 case 1:
                     System.out.println(canciones.listarCanciones());

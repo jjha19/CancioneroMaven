@@ -1,7 +1,6 @@
 package service;
 
 import Common.Constantes;
-import dao.GestorUsuarios;
 import domain.Usuario;
 import ui.EntradaSalida;
 
@@ -20,12 +19,12 @@ public class SesionImplementacion {
             System.out.println(Constantes.PIDECONTRASEÑA);
             String password = EntradaSalida.lectorDeTexto();
 
-            user = new Usuario(GestorUsuarios.crearID(usuarios),username,password, LocalDate.now(),rol);
+            user = new Usuario(dao.GestorUsuariosInterface.crearID(usuarios),username,password, LocalDate.now(),rol);
         } else if (opcion==2) {
             System.out.println(Constantes.PIDEUSERNAME);
             String username = EntradaSalida.lectorDeTexto();
 
-            Optional<Usuario> usuarioexistente = GestorUsuarios.leerUsuariosDeArchivo("src/dao/bbdd_usuarios.txt").stream()
+            Optional<Usuario> usuarioexistente = dao.GestorUsuariosInterface.leerUsuariosDeArchivo("src/dao/bbdd_usuarios.txt").stream()
                     .filter(u -> u.getUsername().equals(username)).findFirst();
             if (usuarioexistente.isPresent()) {
                 System.out.println(Constantes.PIDECONTRASEÑA);

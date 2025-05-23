@@ -1,7 +1,6 @@
 package dao;
 
 import domain.Cancion;
-import domain.Usuario;
 
 import java.io.*;
 import java.util.ArrayList;
