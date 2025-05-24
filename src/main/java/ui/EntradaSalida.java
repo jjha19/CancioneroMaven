@@ -1,9 +1,12 @@
 package ui;
 
 import Common.Constantes;
-import dao.Canciones;
+import dao.GestorCancionesInterface;
 import dao.ReproductorMP3;
+import domain.Usuario;
+import service.SesionServiceImpl;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class EntradaSalida {
@@ -44,7 +47,7 @@ public class EntradaSalida {
             opcion = EntradaSalida.lectorDeOpcionesNumericas();
             String archivoCanciones = "src/dao/bbdd_canciones.txt";
             ReproductorMP3 reproductor = new ReproductorMP3();
-            Canciones canciones = new Canciones(dao.GestorCancionesInterface.leerCancionesDeArchivo(archivoCanciones));
+            Canciones canciones = new Canciones(GestorCancionesInterface.leerCancionesDeArchivo(archivoCanciones));
             switch (opcion) {
                 case 1:
                     System.out.println(canciones.listarCanciones());
@@ -60,26 +63,14 @@ public class EntradaSalida {
 
     }
 
+    public void iniciarSesion(){
+        System.out.println(Constantes.PIDEUSERNAME);
+        String username = EntradaSalida.lectorDeTexto();
+        System.out.println(Constantes.PIDECONTRASEÑA);
+        String password = EntradaSalida.lectorDeTexto();
 
-    /*
-    public static int eleccionRol (){
-        int rol = 0;
-        do {
-            System.out.println(Constantes.OPCIONESROL + Constantes.MENU);
-            int opcion = EntradaSalida.lectorDeOpcionesNumericas();
-            switch (opcion) {
-                case 1:
-                    rol = 1;
-                break;
-                case 2:
-                    if (Comprobaciones.comprobarContraseña()){
-                        rol = 2;
-                    }
-                    break;
-            }
-            return rol;
-        }while (rol != 0);
+
     }
 
-    */
+
 }
