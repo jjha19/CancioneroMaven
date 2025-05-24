@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class Usuarios {
     private ArrayList<Usuario> usuarios;
     public Usuarios() {
-        usuarios = GestorUsuarios.leerUsuariosDeArchivo("src/dao/bbdd_usuarios.txt");
+        GestorUsuarios gu = new GestorUsuarios();
+        usuarios = gu.leerUsuariosDeArchivo("src/dao/bbdd_usuarios.txt");
     }
 
     public ArrayList<Usuario> getUsuarios() {
