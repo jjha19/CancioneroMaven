@@ -1,0 +1,5 @@
+2025-05-24 19:17:09.486 ERROR [main] dao.GestorCanciones - archivo_que_no_existe.txt (El sistema no puede encontrar el archivo especificado)
+2025-05-24 19:18:46.345 INFO  [main] DAO.GestorCancionesTest - Se ha efectuado la prueba parametrizada
+2025-05-24 19:18:46.360 INFO  [main] DAO.GestorCancionesTest - Se ha efectuado la prueba parametrizada
+2025-05-24 19:18:46.368 INFO  [main] DAO.GestorCancionesTest - Se ha efectuado la prueba parametrizada
+2025-05-24 19:18:46.386 ERROR [main] dao.GestorCanciones - archivo_que_no_existe.txt (El sistema no puede encontrar el archivo especificado)

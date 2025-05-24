@@ -1,85 +1,88 @@
 package dao;
 
 import Common.Constantes;
+import Common.ErrorLecturaArchivo;
 import domain.Cancion;
+import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
 
-
+@Data
 public class GestorCanciones {
+    private static final Logger log = LogManager.getLogger(GestorCanciones.class);
+    private ArrayList<Cancion> canciones;
+    private String archivodecanciones = "src/main/java/dao/bbdd_canciones.txt";
 
-    public static ArrayList<Cancion> leerCancionesDeArchivo(String archivo) {
-        ArrayList<Cancion> canciones = new ArrayList<>();
+    public GestorCanciones() throws ErrorLecturaArchivo {
+        canciones = leerCancionesDeArchivo();
+    }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+    public GestorCanciones(ArrayList<Cancion> canciones){
+        this.canciones = canciones;
+    }
+
+    public GestorCanciones(String archivodecanciones) throws ErrorLecturaArchivo {
+        canciones = leerCancionesDeArchivo();
+    }
+
+    public GestorCanciones(ArrayList<Cancion> canciones, String archivodecanciones){
+        this.canciones = canciones;
+        this.archivodecanciones = archivodecanciones;
+    }
+
+
+
+    public ArrayList<Cancion> leerCancionesDeArchivo() throws ErrorLecturaArchivo {
+        canciones = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(archivodecanciones))) {
             String linea;
-
             while ((linea = br.readLine()) != null) {
-                System.out.println("Leyendo línea: " + linea);
-                String[] partes = linea.split(";");
-                if (partes.length == 7) {
-                    int id = Integer.parseInt(partes[0]);
-                    String path = partes[1];
-                    String nombre = partes[2];
-                    String genero = partes[3];
-                    String autor = partes[4];
-                    String duracion = partes[5];
-                    String disco = partes[6];
-
-                    Cancion c = new Cancion(id, path, nombre, genero, autor, duracion, disco);
-                    canciones.add(c);
-                }
+                canciones.add(lineaACancion(linea));
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            log.error(e.getMessage());
+            throw new ErrorLecturaArchivo("No se pudo leer el archivo: " + e.getMessage(), e);
         }
-
         return canciones;
     }
 
-    public static void agregarCancionAlArchivo(Cancion cancion, String archivo) {
+    public Cancion lineaACancion(String linea) throws ErrorLecturaArchivo {
+        String[] partes = linea.split(";");
+        if (partes.length != 7) {
+            throw new ErrorLecturaArchivo("Línea mal formada: " + linea);
+        }
+        try {
+            int id = Integer.parseInt(partes[0]);
+            String path = partes[1];
+            String nombre = partes[2];
+            String genero = partes[3];
+            String autor = partes[4];
+            String duracion = partes[5];
+            String disco = partes[6];
+            return new Cancion(id, path, nombre, genero, autor, duracion, disco);
+        } catch (NumberFormatException e) {
+            throw new ErrorLecturaArchivo("ID inválido en la línea: " + linea, e);
+        }
+    }
+
+    public boolean agregarCancionAlArchivo(Cancion cancion, String archivo) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true))) {
             bw.write(cancion.toString());
             bw.newLine();
+            return true;
         } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+            // No se lanza excepción porque el método devuelve false ante errores
+            return false;
         }
     }
 
     public int crearID(ArrayList<Cancion> canciones) {
-        int lastID = canciones.getLast().getId();
-        return lastID + 1;
+        if (canciones == null || canciones.isEmpty()) return 1;
+        return canciones.get(canciones.size() - 1).getId() + 1;
     }
-
-
-
-    ArrayList<Cancion> canciones;
-    public Canciones(){
-        ArrayList<Cancion> canciones = GestorCanciones.leerCancionesDeArchivo("dao/bbdd_canciones.txt");
-    }
-    public Canciones(ArrayList<Cancion> canciones){
-        this.canciones = canciones;
-    }
-
-
-    // Getters y Setters
-    public ArrayList<Cancion> getCanciones() {
-        return canciones;
-    }
-
-    public void setCanciones(ArrayList<Cancion> canciones) {
-        this.canciones = canciones;
-    }
-
-    public String toString(){
-        StringBuilder songs = new StringBuilder();
-        for (Cancion cancion : canciones) {
-            songs.append(cancion.toString() + "\n");
-        }
-        return songs.toString();
-    }
-
 
     public String listarCanciones() {
         StringBuilder songs = new StringBuilder();
@@ -89,15 +92,24 @@ public class GestorCanciones {
         return songs.toString();
     }
 
-    public Cancion encontrarCancion(String nombreCancion){
-        boolean encontrado = false;
-        for ( int i = 0; i < canciones.size(); i++) {
-            if (canciones.get(i).getNombre().equalsIgnoreCase(nombreCancion)) {
-                return canciones.get(i);
+    public Cancion encontrarCancion(String nombreCancion) {
+        for (Cancion c : canciones) {
+            if (c.getNombre().equalsIgnoreCase(nombreCancion)) {
+                return c;
             }
         }
-        System.out.println(Constantes.MALABUSQUEDA);
         return null;
     }
 
+    public String toString() {
+        StringBuilder songs = new StringBuilder();
+        for (Cancion cancion : canciones) {
+            songs.append(cancion.toString()).append("\n");
+        }
+        return songs.toString();
+    }
+
+    public void setArchivoDeCanciones(String archivo) {
+        this.archivodecanciones = archivo;
+    }
 }

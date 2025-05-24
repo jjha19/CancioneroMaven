@@ -13,58 +13,87 @@ import java.util.Optional;
 
 public class GestorUsuarios implements GestorUsuariosInterface {
 
-    private final String archivodeusuarios = "src/dao/bbdd_usuarios.txt";
+    private static String archivodeusuarios = "src/main/java/dao/bbdd_usuarios.txt";
     ArrayList<Usuario> usuarios;
+
     public GestorUsuarios() {
         usuarios = leerUsuariosDeArchivo(archivodeusuarios);
     }
 
-    public static Usuario gestionarUsuario(int opcion, ArrayList<Usuario> usuarios) {
-        Usuario user = null;
-        GestorUsuarios gu = new GestorUsuarios();
-        if (opcion == 1) {
-
-
-
-        } else if (opcion == 2) {
-
-
-
+    public GestorUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
-    public void darAltaUsuario(String username, String password, int rol) {
-        usuarios.add(new Usuario(crearID(usuarios), username, password, LocalDate.now(), rol));
+    public GestorUsuarios(String archivodeusuarios) {
+        this.archivodeusuarios = archivodeusuarios;
     }
 
 
+    /* public void darAltaUsuario(String username, String password, int rol) {
+        usuarios.add(new Usuario(GestorUsuariosInterface.crearID(usuarios), username, password, LocalDate.now(), rol));
+    }
+
+     */
 
 
-    public List<Usuario> cargarUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(archivodeusuarios))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] datos = linea.split(";");
-                int id = Integer.parseInt(datos[0]);
-                String username = datos[1];
-                String password = datos[2];
-                String fecha = datos[3];
-                int rol = Integer.parseInt(datos[4]);
-                Usuario u = new Usuario(id, username, password, fecha, rol);
-                usuarios.add(u);
+
+
+        public List<Usuario> cargarUsuarios() {
+            List<Usuario> usuariosLeidos = new ArrayList<>();
+            try (BufferedReader br = new BufferedReader(new FileReader(archivodeusuarios))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    String[] datos = linea.split(";");
+                    int id = Integer.parseInt(datos[0]);
+                    String username = datos[1];
+                    String password = datos[2];
+                    String fecha = datos[3];
+                    int rol = Integer.parseInt(datos[4]);
+                    Usuario u = new Usuario(id, username, password, fecha, rol);
+                    usuariosLeidos.add(u);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return usuariosLeidos;
         }
-        return usuarios;
+
+
+    @Override
+    public ArrayList<Usuario> leerUsuariosDeArchivo(String archivo) {
+        return null;
     }
 
-
-    public int crearID(ArrayList<Usuario> usuarios) {
+    public static int crearID(ArrayList<Usuario> usuarios) {
         int lastID = 1;
         if (!usuarios.isEmpty()) {
             return usuarios.getLast().getId() + 1;
         } else return lastID;
+    }
+
+    @Override
+    public boolean encontrarUsuario(Usuario usuario) {
+        return false;
+    }
+
+    @Override
+    public int cantidadUsuarios() {
+        return 0;
+    }
+
+    @Override
+    public void borrarUsuarioPorID(int id) {
+
+    }
+
+    @Override
+    public void borrarUsuarioPorNombre(String nombre) {
+
+    }
+
+    @Override
+    public void darAltaUsuario(Usuario usuario) {
+
     }
 
 }

@@ -1,5 +1,7 @@
 package domain;
 
+import dao.GestorUsuarios;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -37,6 +39,15 @@ public class Usuario {
         this.password = password;
         this.fechaperfil = fecha;
         this.rol = rol;
+        this.playlists = null;
+    }
+
+    public Usuario(String username, String password, int rol) {
+        this.id = 0;
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+        this.fechaperfil = LocalDate.now();
         this.playlists = null;
     }
 

@@ -8,7 +8,9 @@ public interface GestorUsuariosInterface {
     ArrayList<Usuario> leerUsuariosDeArchivo(String archivo);
 
 
-    int crearID(ArrayList<Usuario> usuarios);
+    static int crearID(ArrayList<Usuario> usuarios) {
+        return 0;
+    }
 
 
     boolean encontrarUsuario(Usuario usuario);

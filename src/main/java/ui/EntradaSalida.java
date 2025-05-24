@@ -3,9 +3,11 @@ package ui;
 import Common.Constantes;
 import dao.GestorCancionesInterface;
 import dao.ReproductorMP3;
+import domain.Cancion;
 import domain.Usuario;
 import service.SesionServiceImpl;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -37,6 +39,7 @@ public class EntradaSalida {
         return texto;
     }
 
+    /*
     public static void mainMenu() {
         Scanner lector = new Scanner(System.in);
         boolean valido = false;
@@ -45,9 +48,8 @@ public class EntradaSalida {
         do {
             System.out.println(Constantes.MAINMENU);
             opcion = EntradaSalida.lectorDeOpcionesNumericas();
-            String archivoCanciones = "src/dao/bbdd_canciones.txt";
             ReproductorMP3 reproductor = new ReproductorMP3();
-            Canciones canciones = new Canciones(GestorCancionesInterface.leerCancionesDeArchivo(archivoCanciones));
+            ArrayList<Cancion> canciones = ;
             switch (opcion) {
                 case 1:
                     System.out.println(canciones.listarCanciones());
@@ -62,6 +64,7 @@ public class EntradaSalida {
         } while (opcion != 3);
 
     }
+    */
 
     public void iniciarSesion(){
         System.out.println(Constantes.PIDEUSERNAME);

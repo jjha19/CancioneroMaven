@@ -17,7 +17,9 @@ public class Playlist {
         this.canciones = canciones;
     }
 
+    public Playlist() {
 
+    }
     //Getters y Setters
 
     public int getId() {

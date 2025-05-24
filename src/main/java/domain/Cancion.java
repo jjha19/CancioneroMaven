@@ -1,5 +1,8 @@
 package domain;
 
+import Common.ErrorLecturaArchivo;
+import dao.GestorCanciones;
+
 public class Cancion {
 
     private int id;
@@ -21,8 +24,9 @@ public class Cancion {
         this.disco = disco;
     }
 
-    public Cancion(){
-        dao.GestorCancionesInterface.leerCancionesDeArchivo("dao/bbdd_canciones.txt").stream().findFirst();
+    public Cancion() throws ErrorLecturaArchivo {
+        GestorCanciones g = new GestorCanciones();
+        g.leerCancionesDeArchivo().getFirst();
     }
 
 
