@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class GestorUsuarios {
+public class GestorUsuarios implements GestorCancionesInterface{
     public static ArrayList<Usuario> leerUsuariosDeArchivo(String archivo) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(archivo))) {

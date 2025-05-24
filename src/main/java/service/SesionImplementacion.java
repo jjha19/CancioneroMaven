@@ -1,6 +1,7 @@
 package service;
 
 import Common.Constantes;
+import dao.GestorUsuarios;
 import domain.Usuario;
 import ui.EntradaSalida;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class SesionImplementacion {
     public static Usuario gestionarUsuario(int opcion, ArrayList<Usuario> usuarios) {
         Usuario user = null;
+        GestorUsuarios gu = new GestorUsuarios();
         if (opcion == 1) {
             System.out.println(Constantes.PIDEROL);
             int rol = EntradaSalida.lectorDeOpcionesNumericas();
@@ -19,7 +21,7 @@ public class SesionImplementacion {
             System.out.println(Constantes.PIDECONTRASEÑA);
             String password = EntradaSalida.lectorDeTexto();
 
-            user = new Usuario(dao.GestorUsuariosInterface.crearID(usuarios),username,password, LocalDate.now(),rol);
+            user = new Usuario(dao.GestorUsuarios.crearID(usuarios),username,password, LocalDate.now(),rol);
         } else if (opcion==2) {
             System.out.println(Constantes.PIDEUSERNAME);
             String username = EntradaSalida.lectorDeTexto();

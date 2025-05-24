@@ -12,9 +12,10 @@ public class Usuario {
     private ArrayList<Playlist> playlists;
 
     /*   ROLES:
-    * 1: Usuario Común
-    * 2: Artista
-    * 3: Administrador       */
+    - 1: Usuario Común
+    - 2: Artista
+    - 3: Administrador
+     */
 
 
 
