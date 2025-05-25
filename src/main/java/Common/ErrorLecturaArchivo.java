@@ -13,5 +13,6 @@ public class ErrorLecturaArchivo extends Exception {
     public ErrorLecturaArchivo(String mensaje, Throwable causa) {
         super(mensaje, causa);
     }
+
 }
 

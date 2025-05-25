@@ -1,7 +1,5 @@
 package domain;
 
-import dao.GestorUsuarios;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -49,6 +47,10 @@ public class Usuario {
         this.rol = rol;
         this.fechaperfil = LocalDate.now();
         this.playlists = null;
+    }
+
+    public String getFechaRegistro(){
+        return fechaperfil.toString();
     }
 
     //Getters Y Setters

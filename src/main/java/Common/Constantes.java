@@ -18,6 +18,9 @@ public class Constantes {
     public static final String FORMATOERRONEO = "El formato de respuesta dado no corresponde al esperado. Intenta de nuevo";
 
 
+    public static final String ARCHIVOGUARDADOBIEN = "El archivo se ha guardado correctamente";
+    public static final String ARCHIVOGUARDADOMAL = "Ha habido un error al escribir el archivo";
+
     public static final String MAINMENU = """
             Elige un Sub-menú
             1- Canciones

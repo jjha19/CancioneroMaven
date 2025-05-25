@@ -18,7 +18,7 @@ public class SesionServiceImpl implements SesionService {
 
     @Override
     public Usuario login(String username, String password) {
-        List<Usuario> usuarios = gestorUsuarios.cargarUsuarios();
+        List<Usuario> usuarios = gestorUsuarios.getUsuarios();
         for (Usuario u : usuarios) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
                 usuarioActual = u;

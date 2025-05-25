@@ -79,9 +79,9 @@ public class GestorCanciones {
         }
     }
 
-    public int crearID(ArrayList<Cancion> canciones) {
+    public static int crearID(ArrayList<Cancion> canciones) {
         if (canciones == null || canciones.isEmpty()) return 1;
-        return canciones.get(canciones.size() - 1).getId() + 1;
+        return canciones.getLast().getId() + 1;
     }
 
     public String listarCanciones() {

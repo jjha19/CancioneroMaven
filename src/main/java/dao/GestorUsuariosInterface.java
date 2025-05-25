@@ -1,19 +1,17 @@
 package dao;
 
 import domain.Usuario;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface GestorUsuariosInterface {
 
-    ArrayList<Usuario> leerUsuariosDeArchivo(String archivo);
+    List<Usuario> leerUsuariosDeArchivo(String archivo) throws Exception;
 
+    int crearID();
 
-    static int crearID(ArrayList<Usuario> usuarios) {
-        return 0;
-    }
+    Usuario encontrarUsuarioPorNombre(String nombre);
 
-
-    boolean encontrarUsuario(Usuario usuario);
+    Usuario encontrarUsuarioPorID(int id);
 
     int cantidadUsuarios();
 
@@ -21,6 +19,7 @@ public interface GestorUsuariosInterface {
 
     void borrarUsuarioPorNombre(String nombre);
 
-    void darAltaUsuario(Usuario usuario);
+    void darAltaUsuario(String username, String password, int rol);
 
+    void guardarUsuariosEnArchivo();
 }

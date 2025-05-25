@@ -1,70 +1,97 @@
 package dao;
 
 import Common.Constantes;
+import Common.ErrorEscrituraArchivo;
+import Common.ErrorLecturaArchivo;
 import domain.Usuario;
-import ui.EntradaSalida;
+import lombok.Data;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Data
 public class GestorUsuarios implements GestorUsuariosInterface {
 
-    private static String archivodeusuarios = "src/main/java/dao/bbdd_usuarios.txt";
-    ArrayList<Usuario> usuarios;
+    private String archivodeusuarios = "src/main/java/dao/bbdd_usuarios.txt";
+    private List<Usuario> usuarios;
 
-    public GestorUsuarios() {
+    public GestorUsuarios() throws ErrorLecturaArchivo {
         usuarios = leerUsuariosDeArchivo(archivodeusuarios);
     }
 
-    public GestorUsuarios(ArrayList<Usuario> usuarios) {
+    public GestorUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 
-    public GestorUsuarios(String archivodeusuarios) {
-        this.archivodeusuarios = archivodeusuarios;
+    public GestorUsuarios(String nuevoarchivo) throws ErrorLecturaArchivo {
+        this.archivodeusuarios = nuevoarchivo;
+        this.usuarios = leerUsuariosDeArchivo(nuevoarchivo);
     }
 
 
-    /* public void darAltaUsuario(String username, String password, int rol) {
-        usuarios.add(new Usuario(GestorUsuariosInterface.crearID(usuarios), username, password, LocalDate.now(), rol));
+    public void darAltaUsuario(String username, String password, int rol) {
+        usuarios.add(new Usuario(crearID(), username, password, LocalDate.now(), rol));
     }
-
-     */
-
-
-
-
-        public List<Usuario> cargarUsuarios() {
-            List<Usuario> usuariosLeidos = new ArrayList<>();
-            try (BufferedReader br = new BufferedReader(new FileReader(archivodeusuarios))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    String[] datos = linea.split(";");
-                    int id = Integer.parseInt(datos[0]);
-                    String username = datos[1];
-                    String password = datos[2];
-                    String fecha = datos[3];
-                    int rol = Integer.parseInt(datos[4]);
-                    Usuario u = new Usuario(id, username, password, fecha, rol);
-                    usuariosLeidos.add(u);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            return usuariosLeidos;
-        }
-
 
     @Override
-    public ArrayList<Usuario> leerUsuariosDeArchivo(String archivo) {
-        return null;
+    public void guardarUsuariosEnArchivo() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivodeusuarios))) {
+            for (Usuario u : usuarios) {
+                String linea = u.getId() + ";" + u.getUsername() + ";" + u.getPassword() + ";" + u.getFechaRegistro() + ";" + u.getRol();
+                bw.write(linea);
+                bw.newLine();
+            }
+            System.out.println(Constantes.ARCHIVOGUARDADOBIEN);
+        } catch (ErrorEscrituraArchivo e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(Constantes.ARCHIVOGUARDADOMAL);
+        }
     }
 
-    public static int crearID(ArrayList<Usuario> usuarios) {
+    @Override
+    public List<Usuario> leerUsuariosDeArchivo(String archivo) throws ErrorLecturaArchivo {
+        usuarios = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(";");
+                int id = Integer.parseInt(datos[0]);
+                String username = datos[1];
+                String password = datos[2];
+                String fecha = datos[3];
+                int rol = Integer.parseInt(datos[4]);
+                Usuario u = new Usuario(id, username, password, fecha, rol);
+                usuarios.add(u);
+            }
+        } catch (Exception e) {
+            throw new ErrorLecturaArchivo();
+        }
+        return usuarios;
+    }
+
+    @Override
+    public Usuario encontrarUsuarioPorNombre(String nombre) {
+        Usuario user = null;
+        if(usuarios.stream().anyMatch(u -> u.getUsername().equals(nombre))) {
+            user = usuarios.stream().filter(u -> u.getUsername().equals(nombre)).findFirst().orElse(null);
+        }else System.out.println(Constantes.USUARIONOENCONTRADO);
+        return user;
+    }
+
+    @Override
+    public Usuario encontrarUsuarioPorID(int id) {
+        Usuario user = null;
+        if(usuarios.stream().anyMatch(u -> u.getId() == id)) {
+            user = usuarios.stream().filter(u -> u.getId() == id).findFirst().orElse(null);
+        }else System.out.println(Constantes.USUARIONOENCONTRADO);
+        return user;
+    }
+
+    public int crearID() {
         int lastID = 1;
         if (!usuarios.isEmpty()) {
             return usuarios.getLast().getId() + 1;
@@ -72,28 +99,21 @@ public class GestorUsuarios implements GestorUsuariosInterface {
     }
 
     @Override
-    public boolean encontrarUsuario(Usuario usuario) {
-        return false;
-    }
-
-    @Override
     public int cantidadUsuarios() {
-        return 0;
+        return usuarios.size();
     }
 
     @Override
     public void borrarUsuarioPorID(int id) {
-
+        if (usuarios.stream().anyMatch(u -> u.getId() == id)) {
+            usuarios.remove(usuarios.stream().filter(u -> u.getId() == id).findFirst().get());
+        }else System.out.println(Constantes.USUARIONOENCONTRADO);
     }
 
     @Override
     public void borrarUsuarioPorNombre(String nombre) {
-
+        if (usuarios.stream().anyMatch(u -> u.getUsername().equals(nombre))) {
+            usuarios.remove(usuarios.stream().filter(u -> u.getUsername().equals(nombre)).findFirst().get());
+        }else System.out.println(Constantes.USUARIONOENCONTRADO);
     }
-
-    @Override
-    public void darAltaUsuario(Usuario usuario) {
-
-    }
-
 }
