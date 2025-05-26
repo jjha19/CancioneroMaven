@@ -26,6 +26,12 @@ public class Constantes {
 
     public static final String CAMBIOSGUARDADOS = "Guardando Cambios...";
     public static final String CAMBIOSNOGUARDADOS = "No se guardarán los cambios";
+
+    public static final String ESCRIBIRBACKUPBIEN = "Se ha generado correctamente un backup binario";
+    public static final String ESCRIBIRBACKUPMAL = "No se ha podido generar el backup binario";
+    public static final String LECTURABACKUPBIEN = "Se ha accedido al backup binario";
+    public static final String LECTURABACKUPMAL = "No se ha podido acceder al backup binario";
+
     public static final String ARCHIVOGUARDADOBIEN = "El archivo se ha guardado correctamente";
     public static final String ARCHIVOGUARDADOMAL = "Ha habido un error al escribir el archivo";
 
@@ -92,4 +98,5 @@ public class Constantes {
                                 2 - Eliminar Canciones
                                 3 - Salir
                                 """;
+    public static final String ESCRIBIRIDPLAYLIST = "Escribe el ID de la playlist";
 }

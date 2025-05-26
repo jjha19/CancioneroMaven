@@ -3,9 +3,10 @@ package domain;
 import Common.ErrorLecturaArchivo;
 import dao.GestorCanciones;
 import lombok.Data;
+import java.io.Serializable;
 
 @Data
-public class Cancion {
+public class Cancion implements Serializable {
 
     private int id;
     private String path;

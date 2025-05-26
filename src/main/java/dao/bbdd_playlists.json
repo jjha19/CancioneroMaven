@@ -13,5 +13,20 @@
         "disco": "Caminito"
       }
     ]
+  },
+  {
+    "id": 2,
+    "nombre": "Salsa",
+    "canciones": [
+      {
+        "id": 4,
+        "path": "songs/Blinding Lights.mp3",
+        "nombre": "Blinding Lights",
+        "genero": "Pop",
+        "autor": "The Weeknd",
+        "duracion": "3:40",
+        "disco": "After Hours"
+      }
+    ]
   }
 ]

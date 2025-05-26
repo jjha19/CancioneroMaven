@@ -196,7 +196,7 @@ public class EntradaSalida {
                     Playlist p;
                     do {
                         System.out.println(sesion.mostrarPlaylists());
-                        System.out.println(Constantes.PLAYLISTAMODIFICAR);
+                        System.out.println(Constantes.ESCRIBIRIDPLAYLIST);
                         int id = lectorDeOpcionesNumericas();
                         p = sesion.encontrarPlaylist(id);
                     }while (p == null);

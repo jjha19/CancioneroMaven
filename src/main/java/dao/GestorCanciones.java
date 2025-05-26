@@ -17,6 +17,9 @@ public class GestorCanciones {
     private static final Logger log = LogManager.getLogger(GestorCanciones.class);
     private ArrayList<Cancion> canciones;
     private String archivodecanciones = "src/main/java/dao/bbdd_canciones.txt";
+    private String archivoBackupBianrio = "src/main/java/dao/backup_canciones.dat";
+
+
     Comparator<Cancion> ordenadorDiscoNombre = Comparator
             .comparing(Cancion::getDisco, String.CASE_INSENSITIVE_ORDER)
             .thenComparing(Cancion::getNombre, String.CASE_INSENSITIVE_ORDER);
@@ -47,9 +50,14 @@ public class GestorCanciones {
             while ((linea = br.readLine()) != null) {
                 canciones.add(lineaACancion(linea));
             }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new ErrorLecturaArchivo("No se pudo leer el archivo: " + e.getMessage(), e);
+        } catch (IOException archivonoencontrado) {
+
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoBackupBianrio))) {
+                canciones = (ArrayList<Cancion>) ois.readObject();
+                System.out.println(Constantes.LECTURABACKUPBIEN);
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println(Constantes.LECTURABACKUPMAL);
+            }
         }
         return canciones;
     }
@@ -79,7 +87,7 @@ public class GestorCanciones {
             bw.newLine();
             return true;
         } catch (IOException e) {
-            // No se lanza excepción porque el método devuelve false ante errores
+            // No se lanza excepción porque el metodo devuelve false ante errores
             return false;
         }
     }
@@ -92,12 +100,21 @@ public class GestorCanciones {
                 bw.write(linea);
                 bw.newLine();
             }
-            System.out.println(Constantes.ARCHIVOGUARDADOBIEN);
+
+
         } catch (ErrorEscrituraArchivo e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(Constantes.ARCHIVOGUARDADOMAL);
         }
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivoBackupBianrio))) {
+            oos.writeObject(canciones);
+            System.out.println(Constantes.ESCRIBIRBACKUPBIEN);
+        } catch (IOException e) {
+            System.out.println(Constantes.ESCRIBIRBACKUPMAL);
+        }
+
+        System.out.println(Constantes.ARCHIVOGUARDADOBIEN);
     }
 
     public int crearID() {
