@@ -81,7 +81,7 @@ class GestorCancionesTest {
         @Order(2)
         void testLeerCancionesDeArchivo_ErrorArchivoNoExiste() {
             // Cambiamos el archivo a uno que no existe para este test
-            gestor.setArchivoDeCanciones("archivo_que_no_existe.txt");
+            gestor.setArchivodecanciones("archivo_que_no_existe.txt");
 
             assertThrows(ErrorLecturaArchivo.class, () -> gestor.leerCancionesDeArchivo());
         }
@@ -92,7 +92,7 @@ class GestorCancionesTest {
     @Test
     @Order(7)
     void testLeerCancionesDeArchivo_ErrorLineaMala() {
-        gestor.setArchivoDeCanciones("src/main/java/dao/TestLineaMala.txt");
+        gestor.setArchivodecanciones("src/main/java/dao/TestLineaMala.txt");
         assertThatThrownBy(() -> gestor.leerCancionesDeArchivo())
                 .isInstanceOf(Common.ErrorLecturaArchivo.class)
                 .hasMessageContaining("Línea mal formada");
