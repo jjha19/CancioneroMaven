@@ -1,2 +1,4 @@
 1;songs/Caminito-Gardel.mp3;Caminito;Tango;Carlos Gardel;2:29;Caminito
 2;songs/UnspokenThoughts.mp3;Unspoken Thoughts;House;Joe Camel;3:32;Unspoken Thoughts
+4;songs/Blinding Lights.mp3;Blinding Lights;Pop;The Weeknd;3:40;After Hours
+5;songs/After Hours.mp3;After Hours;Pop;The Weeknd;6:20;After Hours
