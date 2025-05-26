@@ -15,9 +15,9 @@ public interface GestorUsuariosInterface {
 
     int cantidadUsuarios();
 
-    void borrarUsuarioPorID(int id);
+    void borrarUsuario(int id);
 
-    void borrarUsuarioPorNombre(String nombre);
+    void borrarUsuario(String nombre);
 
     void darAltaUsuario(String username, String password, int rol);
 

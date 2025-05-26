@@ -27,7 +27,7 @@ class SesionServiceTest {
     @Test
     void testLogin_UsuarioValido() {
         Usuario user = new Usuario("pepe", "1234", 1);
-        when(gestorUsuarios.cargarUsuarios()).thenReturn(List.of(user));
+        when(gestorUsuarios.getUsuarios()).thenReturn(List.of(user));
 
         Usuario resultado = sesionService.login("pepe", "1234");
 

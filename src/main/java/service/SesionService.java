@@ -12,6 +12,8 @@ public interface SesionService {
      */
     Usuario login(String username, String password);
 
+    Usuario login();
+
     /**
      * Cierra la sesión actual
      */
@@ -28,6 +30,6 @@ public interface SesionService {
      */
     boolean haySesionActiva();
 
-    void crearCuenta();
+    void crearCuenta(String username, String password, int rol);
 }
 

@@ -10,6 +10,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>
             <version>2.4.3</version>
@@ -69,6 +74,7 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 
@@ -91,5 +97,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

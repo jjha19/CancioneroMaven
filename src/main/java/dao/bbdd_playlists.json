@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nombre": "Miplaylist",
+    "canciones": [
+      {
+        "id": 1,
+        "path": "songs/Caminito-Gardel.mp3",
+        "nombre": "Caminito",
+        "genero": "Tango",
+        "autor": "Carlos Gardel",
+        "duracion": "2:29",
+        "disco": "Caminito"
+      }
+    ]
+  }
+]

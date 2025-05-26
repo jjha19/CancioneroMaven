@@ -1,6 +1,7 @@
 package dao;
 
 import Common.Constantes;
+import Common.ErrorEscrituraArchivo;
 import Common.ErrorLecturaArchivo;
 import domain.Cancion;
 import lombok.Data;
@@ -9,12 +10,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Data
 public class GestorCanciones {
     private static final Logger log = LogManager.getLogger(GestorCanciones.class);
     private ArrayList<Cancion> canciones;
     private String archivodecanciones = "src/main/java/dao/bbdd_canciones.txt";
+    Comparator<Cancion> ordenadorDiscoNombre = Comparator
+            .comparing(Cancion::getDisco, String.CASE_INSENSITIVE_ORDER)
+            .thenComparing(Cancion::getNombre, String.CASE_INSENSITIVE_ORDER);
 
     public GestorCanciones() throws ErrorLecturaArchivo {
         canciones = leerCancionesDeArchivo();
@@ -79,7 +84,23 @@ public class GestorCanciones {
         }
     }
 
-    public static int crearID(ArrayList<Cancion> canciones) {
+
+    public void guardarCancionesEnArchivo() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivodecanciones))) {
+            for (Cancion c : canciones) {
+                String linea = c.getId() + ";" + c.getPath() + ";" + c.getNombre() + ";" + c.getGenero() + ";" + c.getAutor() + ";" + c.getDuracion() + ";" + c.getDisco();
+                bw.write(linea);
+                bw.newLine();
+            }
+            System.out.println(Constantes.ARCHIVOGUARDADOBIEN);
+        } catch (ErrorEscrituraArchivo e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(Constantes.ARCHIVOGUARDADOMAL);
+        }
+    }
+
+    public int crearID() {
         if (canciones == null || canciones.isEmpty()) return 1;
         return canciones.getLast().getId() + 1;
     }
@@ -91,6 +112,8 @@ public class GestorCanciones {
         }
         return songs.toString();
     }
+
+
 
     public Cancion encontrarCancion(String nombreCancion) {
         for (Cancion c : canciones) {
@@ -109,7 +132,28 @@ public class GestorCanciones {
         return songs.toString();
     }
 
-    public void setArchivoDeCanciones(String archivo) {
-        this.archivodecanciones = archivo;
+    public void darDeAltaCancion(String path, String nombre, String genero, String autor, String duracion, String disco) {
+        Cancion cancion = new Cancion(crearID(),path,nombre,genero,autor,duracion,disco);
+        canciones.add(cancion);
+        System.out.println(Constantes.CANCIONCREADA);
     }
+
+
+    public void darDeBajaCancion(int id) {
+        if (canciones.stream().anyMatch(u -> u.getId() == id)) {
+            canciones.remove(canciones.stream().filter(u -> u.getId() == id).findFirst().get());
+        }else System.out.println(Constantes.MALABUSQUEDA);
+    }
+
+    public void darDeBajaCancion(String nombre) {
+        if (canciones.stream().anyMatch(u -> u.getNombre().equals(nombre))) {
+            canciones.remove(canciones.stream().filter(u -> u.getNombre().equals(nombre)).findFirst().get());
+        }else System.out.println(Constantes.MALABUSQUEDA);
+    }
+
+    public String mostrarCancionesOrdenadas(){
+        canciones.sort(ordenadorDiscoNombre);
+        return listarCanciones();
+    }
+
 }

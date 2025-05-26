@@ -7,6 +7,7 @@ import domain.Usuario;
 import lombok.Data;
 
 
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,13 +35,14 @@ public class GestorUsuarios implements GestorUsuariosInterface {
 
     public void darAltaUsuario(String username, String password, int rol) {
         usuarios.add(new Usuario(crearID(), username, password, LocalDate.now(), rol));
+        System.out.println(Constantes.USUARIOCREADO);
     }
 
     @Override
     public void guardarUsuariosEnArchivo() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivodeusuarios))) {
             for (Usuario u : usuarios) {
-                String linea = u.getId() + ";" + u.getUsername() + ";" + u.getPassword() + ";" + u.getFechaRegistro() + ";" + u.getRol();
+                String linea = u.getId() + ";" + u.getUsername() + ";" + u.getPassword() + ";" + u.getFechaRegistro() + ";" + u.getRol() + ";" + u.getPlaylists();
                 bw.write(linea);
                 bw.newLine();
             }
@@ -104,16 +106,27 @@ public class GestorUsuarios implements GestorUsuariosInterface {
     }
 
     @Override
-    public void borrarUsuarioPorID(int id) {
+    public void borrarUsuario(int id) {
         if (usuarios.stream().anyMatch(u -> u.getId() == id)) {
             usuarios.remove(usuarios.stream().filter(u -> u.getId() == id).findFirst().get());
         }else System.out.println(Constantes.USUARIONOENCONTRADO);
     }
 
     @Override
-    public void borrarUsuarioPorNombre(String nombre) {
+    public void borrarUsuario(String nombre) {
         if (usuarios.stream().anyMatch(u -> u.getUsername().equals(nombre))) {
             usuarios.remove(usuarios.stream().filter(u -> u.getUsername().equals(nombre)).findFirst().get());
+            System.out.println(Constantes.USUARIOELIMINADO);
         }else System.out.println(Constantes.USUARIONOENCONTRADO);
     }
+
+    public String listarUsuarios(){
+        StringBuilder users = new StringBuilder();
+        for (Usuario u : usuarios) {
+            users.append(u.listarUsuario() + "\n");
+        }
+        return users.toString();
+    }
+
+
 }

@@ -2,6 +2,8 @@ package resources;
 
 import domain.Cancion;
 import java.io.FileInputStream;
+
+import domain.Playlist;
 import javazoom.jl.player.Player;
 
 
@@ -21,4 +23,20 @@ public class ReproductorMP3 implements Reproductor {
         }
     }
 
+    public void reproducirPlaylist(Playlist playlist) {
+        if (playlist.getCanciones() == null || playlist.getCanciones().isEmpty()) {
+            System.out.println("La playlist está vacía.");
+            return;
+        }
+
+        ReproductorMP3 reproductor = new ReproductorMP3();
+
+        System.out.println("▶ Reproduciendo playlist: " + playlist.getNombre());
+
+        for (Cancion cancion : playlist.getCanciones()) {
+            reproductor.reproducirCancion(cancion);
+        }
+
+        System.out.println("▶ Fin de la playlist: " + playlist.getNombre());
+    }
 }
