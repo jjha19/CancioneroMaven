@@ -3,9 +3,6 @@ package ui;
 import Common.Constantes;
 import domain.Cancion;
 import domain.Playlist;
-import net.datafaker.idnumbers.SouthAfricanIdNumber;
-import net.datafaker.providers.base.Bool;
-import resources.ReproductorMP3;
 import service.SesionServiceImpl;
 
 import java.util.Scanner;
@@ -157,8 +154,8 @@ public class EntradaSalida {
                 case 1:
                     System.out.println(Constantes.ESCRIBIRNOMBRECANCION);
                     String nombre = lectorDeTexto();
-                    System.out.println(Constantes.ESCRIBIRRUTACANCION);
-                    String path = lectorDeTexto();
+                    System.out.println(Constantes.ESCRIBIRNOMBREARCHIVOCANCION);
+                    String path = "songs/" + lectorDeTexto() + ".mp3";
                     System.out.println(Constantes.ESCRIBIRGENERO);
                     String genero = lectorDeTexto();
                     System.out.println(Constantes.ESCRIBIRAUTORCANCION);

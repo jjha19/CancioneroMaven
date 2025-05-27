@@ -67,7 +67,7 @@ public class Constantes {
             3 - Salir
             """;
     public static final String ESCRIBIRNOMBRECANCION = "Por favor escribe el nombre de la cancion";
-    public static final String ESCRIBIRRUTACANCION = "Por favor escribe la ruta a la cancion";
+    public static final String ESCRIBIRNOMBREARCHIVOCANCION = "Por favor escribe el nombre de tu archivo de cancion. (La extension .mp3 se añade sola)";
     public static final String ESCRIBIRGENERO = "Por favor escribe el genero de la cancion";
     public static final String ESCRIBIRAUTORCANCION = "Por favor escribe el artista, intérprete o autor de tu cancion";
     public static final String ESCRIBIRDURACION = "Por favor escribe la duracion de la cancion";
