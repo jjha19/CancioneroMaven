@@ -164,7 +164,7 @@ public class GestorCanciones {
 
     public void darDeBajaCancion(String nombre) {
         if (canciones.stream().anyMatch(u -> u.getNombre().equalsIgnoreCase(nombre))) {
-            canciones.remove(canciones.stream().filter(u -> u.getNombre().equals(nombre)).findFirst().get());
+            canciones.remove(canciones.stream().filter(u -> u.getNombre().equalsIgnoreCase(nombre)).findFirst().get());
         }else System.out.println(Constantes.MALABUSQUEDA);
     }
 
