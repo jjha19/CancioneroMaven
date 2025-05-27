@@ -169,6 +169,8 @@ public class GestorCanciones {
     }
 
     public String mostrarCancionesOrdenadas(){
+
+        //Este metodo por defecto las ordena alfabeticamente agrupándolas por disco y luego por título de cancion
         Comparator<Cancion> ordenadorDiscoNombre = Comparator
                 .comparing(Cancion::getDisco, String.CASE_INSENSITIVE_ORDER)
                 .thenComparing(Cancion::getNombre, String.CASE_INSENSITIVE_ORDER);
