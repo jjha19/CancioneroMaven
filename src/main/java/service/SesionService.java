@@ -30,6 +30,6 @@ public interface SesionService {
      */
     boolean haySesionActiva();
 
-    void crearCuenta(String username, String password, int rol);
+    String crearCuenta(String username, String password, int rol);
 }
 

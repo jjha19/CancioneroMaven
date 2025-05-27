@@ -20,9 +20,7 @@ public class GestorCanciones {
     private String archivoBackupBianrio = "src/main/java/dao/backup_canciones.dat";
 
 
-    Comparator<Cancion> ordenadorDiscoNombre = Comparator
-            .comparing(Cancion::getDisco, String.CASE_INSENSITIVE_ORDER)
-            .thenComparing(Cancion::getNombre, String.CASE_INSENSITIVE_ORDER);
+
 
     public GestorCanciones() throws ErrorLecturaArchivo {
         canciones = leerCancionesDeArchivo();
@@ -118,8 +116,10 @@ public class GestorCanciones {
     }
 
     public int crearID() {
-        if (canciones == null || canciones.isEmpty()) return 1;
-        return canciones.getLast().getId() + 1;
+        if (canciones == null || canciones.isEmpty()) {
+            return 1;
+        }
+        return canciones.get(canciones.size() - 1).getId() + 1;
     }
 
     public String listarCanciones() {
@@ -149,26 +149,29 @@ public class GestorCanciones {
         return songs.toString();
     }
 
-    public void darDeAltaCancion(String path, String nombre, String genero, String autor, String duracion, String disco) {
+    public boolean darDeAltaCancion(String path, String nombre, String genero, String autor, String duracion, String disco) {
         Cancion cancion = new Cancion(crearID(),path,nombre,genero,autor,duracion,disco);
-        canciones.add(cancion);
-        System.out.println(Constantes.CANCIONCREADA);
+        return canciones.add(cancion);
+
     }
 
 
-    public void darDeBajaCancion(int id) {
+    public boolean darDeBajaCancion(int id) {
         if (canciones.stream().anyMatch(u -> u.getId() == id)) {
-            canciones.remove(canciones.stream().filter(u -> u.getId() == id).findFirst().get());
-        }else System.out.println(Constantes.MALABUSQUEDA);
+            return canciones.remove(canciones.stream().filter(u -> u.getId() == id).findFirst().get());
+        }else return false;
     }
 
-    public void darDeBajaCancion(String nombre) {
+    public boolean darDeBajaCancion(String nombre) {
         if (canciones.stream().anyMatch(u -> u.getNombre().equalsIgnoreCase(nombre))) {
-            canciones.remove(canciones.stream().filter(u -> u.getNombre().equalsIgnoreCase(nombre)).findFirst().get());
-        }else System.out.println(Constantes.MALABUSQUEDA);
+             return canciones.remove(canciones.stream().filter(u -> u.getNombre().equalsIgnoreCase(nombre)).findFirst().get());
+        }else return false;
     }
 
     public String mostrarCancionesOrdenadas(){
+        Comparator<Cancion> ordenadorDiscoNombre = Comparator
+                .comparing(Cancion::getDisco, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(Cancion::getNombre, String.CASE_INSENSITIVE_ORDER);
         canciones.sort(ordenadorDiscoNombre);
         return listarCanciones();
     }

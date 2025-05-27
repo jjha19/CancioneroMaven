@@ -26,6 +26,15 @@
         "autor": "The Weeknd",
         "duracion": "3:40",
         "disco": "After Hours"
+      },
+      {
+        "id": 6,
+        "path": "songs/19dias.mp3",
+        "nombre": "19 Dias",
+        "genero": "temazo",
+        "autor": "Joaquin Sabina",
+        "duracion": "Siempre",
+        "disco": "y 500 noches"
       }
     ]
   }

@@ -70,7 +70,7 @@ public class EntradaSalida {
                 }
 
 
-                sesion.crearCuenta(username, password, rol);
+                System.out.println(sesion.crearCuenta(username, password, rol));
                 sesion.login(username, password);
                 if (guardarcambios()) {
                     sesion.guardarCambiosUsuarios();
@@ -168,7 +168,9 @@ public class EntradaSalida {
                     //Asigna el nombre de la cancion como nombre de disco
                     if (disco.isEmpty()) disco = nombre;
                     if (!nombre.isEmpty() && !path.isEmpty() && !genero.isEmpty() && !autor.isEmpty() && !duracion.isEmpty()) {
-                        sesion.darDeAltaCancion(path, nombre, genero, autor, duracion, disco);
+                        if (sesion.darDeAltaCancion(path, nombre, genero, autor, duracion, disco)){
+                            System.out.println(Constantes.CANCIONCREADA);
+                        }
                     } else System.out.println(Constantes.ERRORENRESPUESTAS);
                     break;
                 case 2:
@@ -176,7 +178,9 @@ public class EntradaSalida {
                     System.out.println(sesion.getGestorCanciones().listarCanciones());
                     System.out.println(Constantes.ESCRIBIRNOMBRECANCION);
                     String name = lectorDeTexto();
-                    sesion.darDeBajaCancion(name);
+                    if (!sesion.darDeBajaCancion(name)){
+                        System.out.println(Constantes.MALABUSQUEDA);
+                    };
                     System.out.println(Constantes.CANCIONDADADEBAJA);
                     break;
 
@@ -289,7 +293,7 @@ public class EntradaSalida {
                     String username = EntradaSalida.lectorDeTexto();
                     System.out.println(Constantes.PIDECONTRASEÑA);
                     String password = EntradaSalida.lectorDeTexto();
-                    sesion.crearCuenta(username, password, rol);
+                    System.out.println(sesion.crearCuenta(username, password, rol));
                     break;
                 case 2:
                     System.out.println(Constantes.PIDEUSERNAME);

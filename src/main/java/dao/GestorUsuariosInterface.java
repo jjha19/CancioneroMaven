@@ -19,7 +19,7 @@ public interface GestorUsuariosInterface {
 
     void borrarUsuario(String nombre);
 
-    void darAltaUsuario(String username, String password, int rol);
+    String darAltaUsuario(String username, String password, int rol);
 
     void guardarUsuariosEnArchivo();
 }

@@ -9,12 +9,10 @@ import domain.Cancion;
 import domain.Playlist;
 import domain.Usuario;
 import lombok.Data;
-import resources.Reproductor;
 import resources.ReproductorMP3;
 import ui.EntradaSalida;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Data
@@ -73,9 +71,9 @@ public class SesionServiceImpl implements SesionService {
         return usuarioActual != null;
     }
 
-    @Override
-    public void crearCuenta(String username, String password, int rol) {
-        gestorUsuarios.darAltaUsuario(username, password, rol);
+
+    public String crearCuenta(String username, String password, int rol) {
+        return gestorUsuarios.darAltaUsuario(username, password, rol);
     }
 
     public void darBajaCuenta(int id){
@@ -96,15 +94,15 @@ public class SesionServiceImpl implements SesionService {
         reproductor.reproducirCancion(gestorCanciones.encontrarCancion(request));
     }
 
-    public void darDeAltaCancion(String path, String nombre, String genero, String autor, String duracion, String disco) {
-        gestorCanciones.darDeAltaCancion(path, nombre, genero, autor, duracion, disco);
+    public boolean darDeAltaCancion(String path, String nombre, String genero, String autor, String duracion, String disco) {
+        return gestorCanciones.darDeAltaCancion(path, nombre, genero, autor, duracion, disco);
     }
 
-    public void darDeBajaCancion(int id){
-        gestorCanciones.darDeBajaCancion(id);
+    public boolean darDeBajaCancion(int id){
+        return gestorCanciones.darDeBajaCancion(id);
     }
-    public void darDeBajaCancion(String nombre){
-        gestorCanciones.darDeBajaCancion(nombre);
+    public boolean darDeBajaCancion(String nombre){
+        return gestorCanciones.darDeBajaCancion(nombre);
     }
 
     public void guardarCambiosUsuarios(){

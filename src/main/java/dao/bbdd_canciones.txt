@@ -3,4 +3,4 @@
 4;songs/Blinding Lights.mp3;Blinding Lights;Pop;The Weeknd;3:40;After Hours
 5;songs/After Hours.mp3;After Hours;Pop;The Weeknd;6:20;After Hours
 6;songs/19dias.mp3;19 Dias;temazo;Joaquin Sabina;Siempre;y 500 noches
-7;songs/letitgo.mp3;let it go;Disney;elsa;2:16;let it go
+7;songs/letitgo.mp3;Let it Go;Frozen;frozen;4:20;Frozen

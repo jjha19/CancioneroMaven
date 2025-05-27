@@ -33,9 +33,9 @@ public class GestorUsuarios implements GestorUsuariosInterface {
     }
 
 
-    public void darAltaUsuario(String username, String password, int rol) {
+    public String darAltaUsuario(String username, String password, int rol) {
         usuarios.add(new Usuario(crearID(), username, password, LocalDate.now(), rol));
-        System.out.println(Constantes.USUARIOCREADO);
+        return Constantes.USUARIOCREADO;
     }
 
     @Override
