@@ -11,6 +11,8 @@ public class Constantes {
     public static final String PIDEUSERNAME  = "Escriba el nombre de Usuario";
     public static final String PIDECONTRASEÑA  = "Escriba la Contraseña";
     public static final String PIDEROL  = "Elija su Rol:\n" +"* 1: Usuario Común\n"+"* 2: Artista\n"+"* 3: Administrador ";
+    public static final String CONTRASENAFORMATOERRONEO  = "La contraseña debe tener entre 6 y 10 caracteres, una minusucula, una mayúscula y un caracter especial";
+
 
     public static final String MALABUSQUEDA = "La búsqueda no ha sido exitosa. Pruebe cambiando los parámetros";
     public static final String USUARIONOENCONTRADO = "No se ha encontrado el usuario";

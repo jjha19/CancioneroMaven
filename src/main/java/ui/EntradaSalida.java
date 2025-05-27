@@ -55,14 +55,24 @@ public class EntradaSalida {
 
             if (opcion == 1) {
                 int rol;
+                boolean contraseñabuena = false;
                 do {
                     System.out.println(Constantes.PIDEROL);
                     rol = EntradaSalida.lectorDeOpcionesNumericas();
                 } while (rol < 1 || rol > 3);
                 System.out.println(Constantes.PIDEUSERNAME);
                 String username = EntradaSalida.lectorDeTexto();
-                System.out.println(Constantes.PIDECONTRASEÑA);
-                String password = EntradaSalida.lectorDeTexto();
+                String password = "";
+
+                while (!contraseñabuena){
+                    System.out.println(Constantes.PIDECONTRASEÑA);
+                    password = EntradaSalida.lectorDeTexto();
+                    if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{6,10}$")){
+                        contraseñabuena = true;
+                    }else System.out.println(Constantes.CONTRASENAFORMATOERRONEO);;
+                }
+
+
                 sesion.crearCuenta(username, password, rol);
                 sesion.login(username, password);
                 if (guardarcambios()) {
